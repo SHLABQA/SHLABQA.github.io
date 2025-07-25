@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Model Finetuning &#8212; Intern Robotics Engine v0.0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/readthedocs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/internnav/quick_start/finetune';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pydata-sphinx-theme.readthedocs.io/en/latest/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../../_static/logo192.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Benchmarking" href="evaluation.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Intern Robotics Engine v0.0.1 documentation - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Intern Robotics Engine v0.0.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/OpenRobotLab/GRUtopia.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/OpenRobotLab/GRUtopia.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../internutopia/index.html">InternUtopia</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internutopia/get_started/index.html">Get Started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/wander-with-keyboard.html">Wander with keyboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/explore-grscenes.html">Explore GRscenes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/teleoperating-with-mocap.html">Teleoperating with Mocap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/teleoperating-with-visionpro.html">Teleoperating with VisionPro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/get_started/layout_edit_with_mocap.html">Layout Edit with Mocap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internutopia/tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/core-concepts.html">Core Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/gym_env.html">Gym Env</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/vec_env.html">Vec Env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/how-to-use-task.html">How to Use Task</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/how-to-use-robot.html">How to Use Robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/how-to-use-controller.html">How to Use Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/how-to-use-sensor.html">How to Use Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/tutorials/how-to-use-metric.html">How to Use Metric</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internutopia/advanced_tutorials/index.html">Advanced Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/advanced_tutorials/how-to-add-robot.html">How to Add Custom Robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/advanced_tutorials/how-to-add-controller.html">How to Add Custom Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/advanced_tutorials/how-to-add-sensor.html">How to Add Custom Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/advanced_tutorials/how-to-add-task.html">How to Add Custom Task</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internutopia/advanced_tutorials/how-to-add-metric.html">How to Add Custom Metric</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../internperception/index.html">InternPerception</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internperception/quick_start/index.html">Quick Start</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/quick_start/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/quick_start/finetune.html">Model Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/quick_start/evaluation.html">Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internperception/tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/tutorials/dataset.html">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/tutorials/model.html">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/tutorials/training.html">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internperception/tutorials/evaluation.html">Evaluation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">InternNav</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Quick Start</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Model Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation.html">Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/dataset.html">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/model.html">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/training.html">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/evaluation.html">Evaluation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../internhumanoid/index.html">InternHumanoid</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internhumanoid/quick_start/index.html">Quick Start</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/quick_start/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/quick_start/finetune.html">Model Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/quick_start/evaluation.html">Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internhumanoid/tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/tutorials/dataset.html">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/tutorials/model.html">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/tutorials/training.html">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internhumanoid/tutorials/evaluation.html">Evaluation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../internmanip/index.html">InternManip</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internmanip/quick_start/index.html">Quick Start</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/quick_start/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/quick_start/finetune.html">Model Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/quick_start/evaluation.html">Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internmanip/tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/tutorials/dataset.html">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/tutorials/model.html">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/tutorials/training.html">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internmanip/tutorials/evaluation.html">Evaluation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../internworldmodel/index.html">InternWorldModel</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internworldmodel/quick_start/index.html">Quick Start</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/quick_start/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/quick_start/finetune.html">Model Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/quick_start/evaluation.html">Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../internworldmodel/tutorials/index.html">Tutorials</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/tutorials/dataset.html">Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/tutorials/model.html">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/tutorials/training.html">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../internworldmodel/tutorials/evaluation.html">Evaluation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">InternNav</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Quick Start</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Model Finetuning</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="model-finetuning">
+<h1>Model Finetuning<a class="headerlink" href="#model-finetuning" title="Permalink to this heading">#</a></h1>
+<section id="finetune-a-built-in-model">
+<h2>Finetune a built-in model<a class="headerlink" href="#finetune-a-built-in-model" title="Permalink to this heading">#</a></h2>
+<p>To finetune a built-in model, you can use the <code class="docutils literal notranslate"><span class="pre">train.py</span></code> script provided in the <code class="docutils literal notranslate"><span class="pre">scripts/train</span></code> directory. This script allows you to specify various parameters such as dataset path, number of GPUs, batch size, output directory, and more. Following is an example command to finetune <code class="docutils literal notranslate"><span class="pre">Pi-0</span></code> model on the <code class="docutils literal notranslate"><span class="pre">Genmanip</span></code> dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>scripts/train/train.py<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--dataset-path<span class="w"> </span>genmanip<span class="w"> </span><span class="se">\ </span><span class="c1"># use the name of the registered dataset, e.g., Genmanip, or a custom dataset path</span>
+<span class="w">   </span>--num-gpus<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--batch_size<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--output-dir<span class="w"> </span>./Checkpoints/runs/<span class="si">${</span><span class="nv">run_name</span><span class="si">}</span><span class="w">  </span><span class="se">\</span>
+<span class="w">   </span>--max-steps<span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--tune_visual<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--tune_llm<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--save_steps<span class="w"> </span><span class="m">80000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--data-config<span class="w"> </span>sweep_joint<span class="w"> </span><span class="se">\ </span><span class="c1"># registered data config</span>
+<span class="w">   </span>--video-backend<span class="w"> </span>torchvision_av<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--report_to<span class="w"> </span>tensorboard<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--base_model_path<span class="w"> </span>lerobot/pi0<span class="w"> </span><span class="c1"># model checkpoint</span>
+</pre></div>
+</div>
+<p>We also provide bash scripts under <code class="docutils literal notranslate"><span class="pre">bash_scripts/</span></code> for finetuning models on slurm clusters. For instance, to finetune <code class="docutils literal notranslate"><span class="pre">Pi-0</span></code> model on the <code class="docutils literal notranslate"><span class="pre">Genmanip</span></code> dataset using 8 GPUs, you can use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>--gpus-per-task<span class="o">=</span><span class="m">8</span><span class="w"> </span>--cpus-per-task<span class="o">=</span><span class="m">8</span><span class="w"> </span>--ntasks<span class="o">=</span><span class="m">1</span><span class="w"> </span>--job-name<span class="o">=</span>pi0_genmanip<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>bash<span class="w"> </span>bash_scripts/train_pi0_genmanip.sh
+</pre></div>
+</div>
+<p>For a quick validation of the finetuned model, you can perform an open-loop evaluation on the training set using the <code class="docutils literal notranslate"><span class="pre">eval_open_loop.py</span></code> script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>scripts/eval/eval_open_loop.py<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--dataset-path<span class="w"> </span>genmanip<span class="w"> </span><span class="se">\ </span><span class="c1"># use the name of the registered dataset, e.g, Genmanip, or a custom dataset path</span>
+<span class="w">   </span>--model-path<span class="w"> </span>./Checkpoints/runs/<span class="si">${</span><span class="nv">run_name</span><span class="si">}</span><span class="w"> </span><span class="se">\ </span><span class="c1"># path to the finetuned model</span>
+<span class="w">   </span>--video-backend<span class="w"> </span>torchvision_av<span class="w"> </span><span class="se">\ </span><span class="c1"># video backend for rendering</span>
+<span class="w">   </span>--data-config<span class="w"> </span>sweep_joint<span class="w"> </span><span class="se">\ </span><span class="c1"># registered data config</span>
+</pre></div>
+</div>
+</section>
+<section id="available-models-and-datasets">
+<h2>Available Models and Datasets<a class="headerlink" href="#available-models-and-datasets" title="Permalink to this heading">#</a></h2>
+<p>At present, we have the following built-in models and datasets that can be used for finetuning:</p>
+<ul class="simple">
+<li><p><strong>Models</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pi0</span></code>: A pre-trained model for general-purpose manipulation tasks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gr00t-n1/1.5</span></code>: An advanced model with additional capabilities.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DP+CLIP</span></code>: A model that combines diffusion policy with CLIP for instruction-guided manipulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AcT+CLIP</span></code>: A model that integrates Action-chunking Transformer with CLIP for instruction-guided manipulation.</p></li>
+</ul>
+</li>
+<li><p><strong>Datasets</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Genmanip</span></code>: A dataset for general manipulation tasks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CALVIN</span></code>: A dataset for complex manipulation tasks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simpler-Env</span></code>: A dataset for simpler environments.</p></li>
+</ul>
+</li>
+</ul>
+<p>To finetune your own model, you can follow the same command structure as above, replacing the <code class="docutils literal notranslate"><span class="pre">--base_model_path</span></code> with your custom model path and adjusting other parameters as needed. Please refer to <a class="reference internal" href="../tutorials/dataset.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">How</span> <span class="pre">to</span> <span class="pre">customize</span> <span class="pre">your</span> <span class="pre">dataset</span></code></span></a> and <a class="reference internal" href="../tutorials/model.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">How</span> <span class="pre">to</span> <span class="pre">add</span> <span class="pre">a</span> <span class="pre">model</span></code></span></a> to learn how to prepare your model and dataset for finetuning.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="installation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="evaluation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Benchmarking</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetune-a-built-in-model">Finetune a built-in model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-models-and-datasets">Available Models and Datasets</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/user_guide/internnav/quick_start/finetune.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, OpenRobotLab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
